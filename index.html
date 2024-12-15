@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Playground</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .controls {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preview-box {
+            width: 200px;
+            height: 200px;
+            background-color: #f0f0f0;
+            border: 2px solid black;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Style Playground</h1>
+    
+    <div class="controls">
+        <div class="control-group">
+            <label for="bgColor">Background Color:</label>
+            <input type="color" id="bgColor" value="#f0f0f0">
+        </div>
+
+        <div class="control-group">
+            <label for="borderStyle">Border Style:</label>
+            <select id="borderStyle">
+                <option value="solid">Solid</option>
+                <option value="dashed">Dashed</option>
+                <option value="dotted">Dotted</option>
+                <option value="double">Double</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label for="borderWidth">Border Thickness:</label>
+            <input type="range" id="borderWidth" min="1" max="10" value="2">
+            <span id="borderWidthValue">2px</span>
+        </div>
+
+        <button onclick="resetStyles()">Reset Styles</button>
+    </div>
+
+    <div id="previewBox" class="preview-box"></div>
+
+    <script>
+        const previewBox = document.getElementById('previewBox');
+        const borderWidthValue = document.getElementById('borderWidthValue');
+
+        // Default styles
+        const defaultStyles = {
+            backgroundColor: '#f0f0f0',
+            borderStyle: 'solid',
+            borderWidth: '2'
+        };
+
+        // Update background color
+        document.getElementById('bgColor').addEventListener('input', (e) => {
+            previewBox.style.backgroundColor = e.target.value;
+        });
+
+        // Update border style
+        document.getElementById('borderStyle').addEventListener('change', (e) => {
+            previewBox.style.borderStyle = e.target.value;
+        });
+
+        // Update border thickness
+        document.getElementById('borderWidth').addEventListener('input', (e) => {
+            const width = e.target.value;
+            previewBox.style.borderWidth = `${width}px`;
+            borderWidthValue.textContent = `${width}px`;
+        });
+
+        // Reset styles
+        function resetStyles() {
+            const bgColor = document.getElementById('bgColor');
+            const borderStyle = document.getElementById('borderStyle');
+            const borderWidth = document.getElementById('borderWidth');
+
+            // Reset form controls
+            bgColor.value = defaultStyles.backgroundColor;
+            borderStyle.value = defaultStyles.borderStyle;
+            borderWidth.value = defaultStyles.borderWidth;
+
+            // Reset preview box
+            previewBox.style.backgroundColor = defaultStyles.backgroundColor;
+            previewBox.style.borderStyle = defaultStyles.borderStyle;
+            previewBox.style.borderWidth = `${defaultStyles.borderWidth}px`;
+            
+            // Reset border width display value
+            borderWidthValue.textContent = `${defaultStyles.borderWidth}px`;
+        }
+    </script>
+</body>
+</html> 
